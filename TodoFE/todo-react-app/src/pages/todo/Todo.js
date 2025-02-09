@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { ListItem, ListItemText, InputBase, Checkbox } from "@mui/material";
+import { ListItem, ListItemText, InputBase, Checkbox,IconButton} from "@mui/material";
+import DeleteOutlined from "@mui/icons-material/DeleteOutlined";
 
 
 const Todo = (props) => {
     const [item, setItem] = useState(props.item);
+    const deleteItem = props.deleteItem
+
+    const deleteEnventHandler = () => {
+        deleteItem(item)
+    }
 
     return(
        <ListItem>
@@ -19,6 +25,11 @@ const Todo = (props) => {
                  fullWidth={true}
                 />
             </ListItemText>
+            
+                <IconButton aria-label="Delete Todo" onClick={deleteEnventHandler}>
+                    <DeleteOutlined/>
+                </IconButton>
+            
        </ListItem>
     )
 }

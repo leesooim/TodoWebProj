@@ -18,16 +18,15 @@ const AddTodo = (props) => {
 
     const onInputChange = (e) => {
         setItem({title:e.target.value})
-        console.log(item)
     }
 
     return (
         <Grid2 container style={{marginTod:20}}>
-            <Grid2 xs={11} md={11} item fullWidth style={{ paddingRight: 16 }}>
+            <Grid2 xs={11} md={11} item style={{ paddingRight: 16 }}>
                 <TextField placeholder="Add Todo here" onChange={onInputChange} value={item.title} onKeyDown={enterEventHandler}/>
             </Grid2>
             <Grid2 xs={1} md={1} item>
-                <Button fullWidth style={{height: '100%'}} color="secondary" variant="outlined" onClick={onButtonClick}>
+                <Button style={{height: '100%'}} color="secondary" variant="outlined" onClick={onButtonClick}>
                     +
                 </Button>
             </Grid2>
