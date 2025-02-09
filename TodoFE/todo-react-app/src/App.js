@@ -18,15 +18,19 @@ const addItem = (item) => {
   };
 
   const deleteItem = (item) => {
-    const newItem = items.filter(e => e.id != item.id)
+    const newItem = items.filter(e => e.id !== item.id)
     setItems([...newItem])
+  }
+
+  const editItem = () => {
+    setItems([...items])
   }
 
   let todoItems = items.length > 0 && (
     <Paper style={{margin:16}}>
       <List>
         {items.map((item) =>(
-          <Todo item={item} key={item.id} deleteItem={deleteItem}/>
+          <Todo item={item} key={item.id} editItem={editItem} deleteItem={deleteItem}/>
          ))}
       </List>
     </Paper>

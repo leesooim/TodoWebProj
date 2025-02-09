@@ -5,24 +5,49 @@ import DeleteOutlined from "@mui/icons-material/DeleteOutlined";
 
 const Todo = (props) => {
     const [item, setItem] = useState(props.item);
+    const [readOnly, setReadOnly] = useState(true);
     const deleteItem = props.deleteItem
+    const editItem = props.editItem
 
     const deleteEnventHandler = () => {
         deleteItem(item)
     }
 
+    const editEventHandler = (e) => {
+        item.title = e.target.value
+        editItem()
+    }
+
+    const checkboxEventHandler = (e) => {
+        item.done = e.target.checked;
+        editItem()
+      }
+
+    const turnOffReadOnly = () => {
+        setReadOnly(false)
+    }
+
+    const trunOnReadonly = (e) => {
+        if(e.key === 'Enter') {
+            setReadOnly(true)
+        }
+    }
+
     return(
        <ListItem>
-            <Checkbox checked={item.done}/>
+            <Checkbox checked={item.done} onChange={checkboxEventHandler}/>
             <ListItemText>
                 <InputBase
-                 inputProps={{ "aria-label": "naked"}}
+                 inputProps={{ "aria-label": "naked", readOnly: readOnly}}
+                 onClick={turnOffReadOnly}
+                 onKeyDown={trunOnReadonly}
+                 onChange={editEventHandler}
                  type="text"
                  id={item.id}
                  name={item.id}
                  value={item.title}
                  multiline={true}
-                 fullWidth={true}
+                 fullWidth
                 />
             </ListItemText>
             
