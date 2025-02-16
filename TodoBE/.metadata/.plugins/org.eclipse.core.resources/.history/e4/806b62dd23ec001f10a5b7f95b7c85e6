@@ -1,0 +1,5 @@
+package com.sjyi.todoWebProj.config;
+
+public class WebMvcConfig {
+
+}
