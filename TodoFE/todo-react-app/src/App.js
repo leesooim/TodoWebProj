@@ -1,29 +1,35 @@
 // import logo from './logo.svg';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import  Todo from './pages/todo/Todo'
 import AddTodo from './pages/todo/AddTodo';
 import { Container, List, Paper } from "@mui/material";
+import { call } from "./service/ApiService";
 
 function App() {
   const [items, setItems] = useState([]);
 
-const addItem = (item) => {
-  item.id = "ID-" + items.length; 
-  item.done = false;
+  useEffect(() => {
+    call("/todo", "GET", null)
+    .then((response) => setItems(response.data));
+  },[])
   
-  // 업데이트는 반드시 setItems로 하고 새 배열을 만들어야 한다.
-  setItems([...items, item]);
-  console.log("items : ", items);
-  };
+
+  const addItem = (item) => {
+    call("/todo", "POST", item)
+    .then((response) => setItems(response.data));
+
+    console.log("items : ", items);
+    };
 
   const deleteItem = (item) => {
-    const newItem = items.filter(e => e.id !== item.id)
-    setItems([...newItem])
+    call("/todo", "DELETE", item)
+    .then((response) => setItems(response.data));
   }
 
-  const editItem = () => {
-    setItems([...items])
+  const editItem = (item) => {
+    call("/todo","PUT", item)
+    .then((respons) => setItems(respons.data))
   }
 
   let todoItems = items.length > 0 && (

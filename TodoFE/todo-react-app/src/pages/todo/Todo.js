@@ -14,13 +14,12 @@ const Todo = (props) => {
     }
 
     const editEventHandler = (e) => {
-        item.title = e.target.value
-        editItem()
+        setItem({...item, title: e.target.value});
     }
 
     const checkboxEventHandler = (e) => {
         item.done = e.target.checked;
-        editItem()
+        editItem(item)
       }
 
     const turnOffReadOnly = () => {
@@ -30,6 +29,7 @@ const Todo = (props) => {
     const trunOnReadonly = (e) => {
         if(e.key === 'Enter') {
             setReadOnly(true)
+            editItem(item);
         }
     }
 
