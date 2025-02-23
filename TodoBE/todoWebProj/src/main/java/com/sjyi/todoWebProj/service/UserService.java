@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.sjyi.todoWebProj.model.TodoEntity;
 import com.sjyi.todoWebProj.model.UserEntity;
 import com.sjyi.todoWebProj.persistence.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -32,11 +35,15 @@ public class UserService {
 		return userRepository.save(userEntity);
 	}
 	
-	public UserEntity getByCredentials(final String username, String password) {
+	public UserEntity getByCredentials(final String username, final String password, final PasswordEncoder encoder) {
 		
-		log.info("username : " , username);
-		log.info("password : " , password);
-		return userRepository.findByUsernameAndPassword(username, password);
+		final UserEntity originalUser = userRepository.findByUsername(username);
+		
+		if(originalUser != null && encoder.matches(password,originalUser.getPassword())) {
+			return originalUser;	
+		}
+		
+		return null;
 	}
 	
 	public List<UserEntity> retrieve() {
