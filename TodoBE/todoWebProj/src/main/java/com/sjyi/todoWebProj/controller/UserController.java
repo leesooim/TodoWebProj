@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.sjyi.todoWebProj.dto.ResponseDTO;
 import com.sjyi.todoWebProj.dto.UserDTO;
 import com.sjyi.todoWebProj.model.UserEntity;
 import com.sjyi.todoWebProj.service.UserService;
-
+import com.sjyi.todoWebProj.security.TokenProvider
+;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,6 +27,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private TokenProvider tokenProvider;
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO ) {
@@ -67,10 +72,11 @@ public class UserController {
 				userDTO.getPassword());
 		
 		if(user != null) {
-			
+			final String token = tokenProvider.create(user);
 			final UserDTO responseUserDTO = UserDTO.builder()
 					.username(user.getUsername())
 					.id(user.getId())
+					.token(token)
 					.build();
 			
 			return ResponseEntity.ok().body(responseUserDTO);
