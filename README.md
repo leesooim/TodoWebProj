@@ -35,7 +35,7 @@
 
 **Backend (BE)**
 
-- Spring Boot
+- Spring Boot :(v3.4.2)
 
 **Database (DB)**
 
