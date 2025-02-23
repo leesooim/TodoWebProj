@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import { Button, Grid2, TextField } from "@mui/material";
+import { Grid, Button, Grid2, TextField } from "@mui/material";
+import Grid from '@mui/material/Grid';
 
 const AddTodo = (props) => {
     const [item,setItem] = useState({title : ""});
@@ -25,15 +26,16 @@ const AddTodo = (props) => {
     }
 
     return (
-        <Grid2 container style={{marginTod:20}}>
-            <Grid2 xs={11} md={11} style={{ paddingRight: 16 }}>
-                <TextField fullWidth 
+        <Grid2 container style={{marginTop:20} }>
+            <Grid2 xs={11} md={11} style={{ paddingLeft: 20, paddingRight: 16, width: '90%' }}>
+                <TextField  
                     placeholder="Add Todo here" 
                     onChange={onInputChange} 
                     value={item.title} 
                     onKeyDown={enterEventHandler} 
                     onCompositionStart={() => setIsComposing(true)}
-                    onCompositionEnd={() => setIsComposing(false)}/>
+                    onCompositionEnd={() => setIsComposing(false)}
+                    fullWidth/>
             </Grid2>
             <Grid2 xs={1} md={1} >
                 <Button style={{height: '100%'}} color="secondary" variant="outlined" onClick={onButtonClick}>
