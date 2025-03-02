@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import { Grid, Button, Grid2, TextField } from "@mui/material";
-import Grid from '@mui/material/Grid';
+import { Button, Grid2, TextField } from "@mui/material";
 
 const AddTodo = (props) => {
     const [item,setItem] = useState({title : ""});
